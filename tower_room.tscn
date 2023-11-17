@@ -1,0 +1,58 @@
+[gd_scene load_steps=12 format=3 uid="uid://de1txggyfesuf"]
+
+[ext_resource type="Script" path="res://tower_room.gd" id="1_vo13b"]
+[ext_resource type="PackedScene" uid="uid://cphi4a1dkdhwf" path="res://vr_player.tscn" id="2_ospp3"]
+[ext_resource type="ArrayMesh" uid="uid://b1072cdudi442" path="res://stand.obj" id="3_ry73j"]
+[ext_resource type="ArrayMesh" uid="uid://bqgxu0brsllav" path="res://ball.obj" id="4_vlri8"]
+[ext_resource type="PackedScene" uid="uid://s3xe7bl5dj6d" path="res://not_vr_player.tscn" id="5_8xxka"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_mblnr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gex3a"]
+next_pass = SubResource("FogMaterial_mblnr")
+albedo_color = Color(0.415686, 0.356863, 0.501961, 1)
+grow_amount = -0.36
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u6k4q"]
+
+[sub_resource type="Skin" id="Skin_w47jl"]
+
+[sub_resource type="Environment" id="Environment_msvm0"]
+background_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_g8bco"]
+
+[node name="Tower_Room" type="Node3D"]
+script = ExtResource("1_vo13b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(26.854, 0, 0, 0, 0.173, 0, 0, 0, 24.055, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_gex3a")
+mesh = SubResource("CylinderMesh_u6k4q")
+skin = SubResource("Skin_w47jl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_msvm0")
+
+[node name="vr_player" parent="." instance=ExtResource("2_ospp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55477, 0)
+
+[node name="cubes" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.998729, 0, -0.0504012, 0, 1, 0, 0.0504012, 0, 0.998729, 1.18653, 0.972267, 3.97098)
+mesh = ExtResource("3_ry73j")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00615859, -0.110485, -0.189987)
+mesh = ExtResource("4_vlri8")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04893, 0.95197, -8.02323)
+mesh = SubResource("BoxMesh_g8bco")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.956788, 0.290786, 0, -0.290786, 0.956788, 0, 3.77173, 2.91026)
+shadow_enabled = true
+
+[node name="Non-vr_player" parent="." instance=ExtResource("5_8xxka")]

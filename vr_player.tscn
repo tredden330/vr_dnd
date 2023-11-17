@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cphi4a1dkdhwf"]
+
+[ext_resource type="Script" path="res://vr_player.gd" id="1_6f2t4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jni5w"]
+
+[node name="vr_player" type="Node3D"]
+script = ExtResource("1_6f2t4")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.816686, -0.472259)
+
+[node name="Left hand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="Right hand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jni5w")
